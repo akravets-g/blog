@@ -7,11 +7,11 @@ const readFile = async (path) => {
 const writeFile = async (path, data) => {
     await fs.promises.writeFile(path, JSON.stringify(data), 'utf-8');
 }
-export function getPopularity() {
-    return readFile(popularityPath)
+export async function getPopularity() {
+    return await readFile(popularityPath)
 }
 
-export function addPopularity(post) {
+export async function addPopularity(post) {
     const popularity = await readFile(popularityPath);
     const currentPost = popularity.popularity.find(p => p.post === post)
     if(currentPost){

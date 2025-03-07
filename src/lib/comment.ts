@@ -7,11 +7,11 @@ const readFile = async (path) => {
 const writeFile = async (path, data) => {
     await fs.promises.writeFile(path, JSON.stringify(data), 'utf-8');
 }
-export function getComments() {
-    return readFile(commentsPath)
+export async function getComments() {
+    return await readFile(commentsPath)
 }
 
-export function addComment(comment) {
+export async function addComment(comment) {
     const comments = await readFile(commentsPath);
     comments.comments.push(comment);
     await writeFile(commentsPath, comments);

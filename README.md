@@ -17,4 +17,12 @@ The project is structured as follow:
     - `popularity.json`: popularity storage
 
 ## Usage
-To start the project, you need to run the following command:
+To start the project, you need to run the following commands:
+- `npm install` to install dependencies.
+- `npm run dev` to start the project.
+
+## Test
+To test the project, you can run the following command:
+- `npm test`
+
+This will run all the tests in the `src/tests` folder.

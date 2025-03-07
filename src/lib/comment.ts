@@ -11,9 +11,10 @@ export function getComments() {
     return readFile(commentsPath)
 }
 
-export function addComment(comment) {
-    const comments = readFile(commentsPath);
-    comments.comments.push(comment);
-    writeFile(commentsPath, comments);
+export async function addComment(comment) {
+    const data = await readFile(commentsPath)
+    const comments = data.comments
+    comments.push(comment);
+    await writeFile(commentsPath, data);
     return 'ok';
 }

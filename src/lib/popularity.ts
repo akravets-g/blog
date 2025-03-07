@@ -11,14 +11,15 @@ export function getPopularity() {
     return readFile(popularityPath)
 }
 
-export function addPopularity(post) {
-    const popularity = readFile(popularityPath);
-    const currentPost = popularity.popularity.find(p => p.post === post)
+export async function addPopularity(post) {
+    const data = await readFile(popularityPath);
+    const popularity = data.popularity;
+    const currentPost = popularity.find(p => p.post === post);
     if(currentPost){
         currentPost.count++
     }else {
-        popularity.popularity.push({post, count: 1});
+        popularity.push({post, count: 1});
     }
-    writeFile(popularityPath, popularity);
+    await writeFile(popularityPath, data);
     return 'ok';
 }

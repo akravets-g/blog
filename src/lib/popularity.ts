@@ -12,13 +12,14 @@ export function getPopularity() {
 }
 
 export function addPopularity(post) {
-    const popularity = readFile(popularityPath);
+    const popularity = await readFile(popularityPath);
     const currentPost = popularity.popularity.find(p => p.post === post)
     if(currentPost){
         currentPost.count++
     }else {
         popularity.popularity.push({post, count: 1});
     }
-    writeFile(popularityPath, popularity);
+    await writeFile(popularityPath, popularity);
     return 'ok';
 }
+

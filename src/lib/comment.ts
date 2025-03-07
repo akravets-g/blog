@@ -12,8 +12,9 @@ export function getComments() {
 }
 
 export function addComment(comment) {
-    const comments = readFile(commentsPath);
+    const comments = await readFile(commentsPath);
     comments.comments.push(comment);
-    writeFile(commentsPath, comments);
+    await writeFile(commentsPath, comments);
     return 'ok';
 }
+

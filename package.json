@@ -1,0 +1,11 @@
+{
+{
+  "name": "blog",
+  "version": "0.0.1",
+  "scripts": {
+      "test": "python src/tests/run_tests.py"
+  },
+  "dependencies": {
+    "astro": "^1.0.0"
+  }
+}

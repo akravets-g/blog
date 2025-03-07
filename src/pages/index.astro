@@ -1,0 +1,79 @@
+---
+---
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>My Blog</title>
+  </head>
+---
+import { getCollection } from 'astro:content';
+const allPosts = await getCollection('post');
+---
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>My Blog</title>
+  </head>
+  <body>
+    <h1>Welcome to my blog!</h1>
+---
+import { getCollection } from 'astro:content';
+import { getComments } from '../lib/comment';
+const allPosts = await getCollection('post');
+const comments = await getComments();
+---
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>My Blog</title>
+  </head>
+  <body>
+    <h1>Welcome to my blog!</h1>
+    {allPosts.map((post) => 
+        <p>Title: {post.data.title}</p>
+    )}
+    <h2>Comments</h2>
+    {comments.map((comment) =>
+        <p>{comment.text}</p>
+    )}
+---
+import { getCollection } from 'astro:content';
+import { getComments } from '../lib/comment';
+import { getPopularity, addPopularity } from '../lib/popularity';
+const allPosts = await getCollection('post');
+const comments = await getComments();
+const popularity = await getPopularity();
+
+allPosts.forEach(async (post) => {
+    await addPopularity(post.id);
+});
+---
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>My Blog</title>
+  </head>
+  <body>
+    <h1>Welcome to my blog!</h1>
+    {allPosts.map((post) => 
+        <div>
+            <p>Title: {post.data.title}</p>
+            <p>Popularity: {popularity.find(p => p.post === post.id)?.count || 0}</p>
+        </div>
+    )}
+    <h2>Comments</h2>
+    {comments.map((comment) =>
+        <p>{comment.text}</p>
+    )}
+    <form method="POST" action="/api/comment">
+        <label for="comment">Comment:</label>
+        <input type="text" id="comment" name="comment" />
+        <button type="submit">Add comment</button>
+    </form>
+  </body>
+</html>
+---
